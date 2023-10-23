@@ -1,0 +1,16 @@
+import 'package:flutter/material.dart';
+
+class RegistrationScreen extends StatelessWidget {
+  const RegistrationScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: SafeArea(
+        child: Center(
+          child: Text("RegistrationScreen"),
+        ),
+      ),
+    );
+  }
+}
