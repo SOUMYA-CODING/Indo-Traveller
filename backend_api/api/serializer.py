@@ -9,7 +9,19 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserProfile
-        fields = '__all__'
+        fields = [
+            'id',
+            'profile_picture',
+            'password',
+            'username',
+            'first_name',
+            'last_name',
+            'email',
+            'is_active',
+            'user_type',
+            'phone_number',
+            'address',
+        ]
 
     def get_profile_picture(self, obj):
         if obj.profile_picture:
@@ -23,7 +35,7 @@ class PropertyTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = PropertyType
         fields = '__all__'
-    
+
     def get_icon(self, obj):
         if obj.icon:
             return obj.icon.url
@@ -49,7 +61,7 @@ class PropertySerializer(serializers.ModelSerializer):
     class Meta:
         model = Property
         fields = '__all__'
-    
+
     def get_property_images(self, obj):
         if obj.property_images:
             return obj.property_images.url
