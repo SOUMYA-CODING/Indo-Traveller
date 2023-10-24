@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_app/config/color.dart';
+import 'package:frontend_app/constants/color.dart';
 import 'package:frontend_app/constants/extension.dart';
 import 'package:frontend_app/views/widgets/common/custom_button.dart';
 import 'package:frontend_app/views/widgets/common/custom_text_form_field.dart';

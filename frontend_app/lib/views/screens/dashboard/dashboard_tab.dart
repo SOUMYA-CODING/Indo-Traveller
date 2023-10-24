@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_app/config/color.dart';
+import 'package:frontend_app/constants/color.dart';
 import 'package:frontend_app/constants/extension.dart';
 import 'package:frontend_app/controllers/dashboard/dashboard_controller.dart';
 import 'package:get/get.dart';

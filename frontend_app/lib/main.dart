@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_app/config/theme.dart';
+import 'package:frontend_app/constants/theme.dart';
 import 'package:frontend_app/constants/strings.dart';
 import 'package:frontend_app/routes/app_route.dart';
 import 'package:get/get.dart';

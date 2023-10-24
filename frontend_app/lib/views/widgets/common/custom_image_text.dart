@@ -29,7 +29,7 @@ class CustomImageText extends StatelessWidget {
               padding: EdgeInsets.all(1.0.wp),
               decoration: BoxDecoration(
                 color: backgroundColor,
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(AppSizes.cardRadiusLg),
               ),
               child: Center(
                 child: Image.network(

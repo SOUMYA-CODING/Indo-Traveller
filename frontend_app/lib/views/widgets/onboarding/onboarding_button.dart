@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_app/config/color.dart';
+import 'package:frontend_app/constants/color.dart';
 import 'package:frontend_app/controllers/onboarding/onboarding_controller.dart';
 import 'package:iconsax/iconsax.dart';
 

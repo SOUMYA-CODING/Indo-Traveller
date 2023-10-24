@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:frontend_app/config/color.dart';
+import 'package:frontend_app/constants/color.dart';
 
 class AppTextTheme {
   static TextTheme lightTextTheme = TextTheme(
