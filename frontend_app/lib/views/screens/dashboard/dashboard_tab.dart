@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_app/constants/color.dart';
-import 'package:frontend_app/constants/extension.dart';
+import 'package:frontend_app/constants/sizes.dart';
 import 'package:frontend_app/controllers/dashboard/dashboard_controller.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -15,24 +15,27 @@ class DashboardScreen extends StatelessWidget {
       bottomNavigationBar: Obx(
         () => BottomNavigationBar(
           elevation: 0,
-          backgroundColor: Colors.white30,
+          backgroundColor: AppColor.textWhite,
           showSelectedLabels: true,
           showUnselectedLabels: true,
-          type: BottomNavigationBarType.fixed,
-          selectedFontSize: 9.0.sp,
-          unselectedFontSize: 9.0.sp,
+          selectedFontSize: AppSizes.fontSizeSm,
+          unselectedFontSize: AppSizes.fontSizeSm,
           selectedItemColor: AppColor.primary,
-          selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
+          type: BottomNavigationBarType.fixed,
           currentIndex: dashboardController.currentTabIndex.value,
           onTap: (index) => dashboardController.onTap(index),
           items: const [
             BottomNavigationBarItem(
-              icon: Icon(Iconsax.home),
+              icon: Icon(Iconsax.home_2),
               label: "Home",
             ),
             BottomNavigationBarItem(
               icon: Icon(Iconsax.map),
               label: "Explore",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Iconsax.heart),
+              label: "Wishlist",
             ),
             BottomNavigationBarItem(
               icon: Icon(Iconsax.ticket),

@@ -12,4 +12,13 @@ class RouteNames {
 
   // Dashboard
   static const dashboardScreen = "/dashboard_screen";
+
+  // Notification
+  static const notificationScreen = "/notification_screen";
+
+  // Property Details
+  static const propertyDetailsScreen = "/property_details_screen";
+
+  // Reservation
+  static const reservationScreen = "/reservation_screen";
 }

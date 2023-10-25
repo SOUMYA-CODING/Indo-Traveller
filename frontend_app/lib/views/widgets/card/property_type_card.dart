@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_app/constants/color.dart';
 import 'package:frontend_app/constants/extension.dart';
 import 'package:frontend_app/constants/sizes.dart';
 
-class CustomImageText extends StatelessWidget {
+class PropertyTypeCard extends StatelessWidget {
   final String image, title;
   final Color? backgroundColor;
   final void Function()? onTap;
 
-  const CustomImageText({
+  const PropertyTypeCard({
     super.key,
     required this.title,
     required this.image,
-    this.backgroundColor = Colors.white,
+    this.backgroundColor = AppColor.white,
     this.onTap,
   });
 

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_app/constants/color.dart';
+import 'package:frontend_app/routes/route_names.dart';
 import 'package:frontend_app/views/widgets/common/custom_app_bar.dart';
 import 'package:frontend_app/views/widgets/notification/notification_counter.dart';
+import 'package:get/get.dart';
 
 class HomeAppBar extends StatelessWidget {
   const HomeAppBar({
@@ -18,20 +21,20 @@ class HomeAppBar extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .labelMedium!
-                .copyWith(color: Colors.white),
+                .copyWith(color: AppColor.white),
           ),
           Text(
             "Soumya Prakash Sahu",
             style: Theme.of(context)
                 .textTheme
                 .titleMedium!
-                .copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+                .copyWith(color: AppColor.white, fontWeight: FontWeight.bold),
           ),
         ],
       ),
       actions: [
         NotificationCounter(
-          onPressed: () {},
+          onPressed: () => Get.toNamed(RouteNames.notificationScreen),
           iconColor: Colors.white,
         ),
       ],

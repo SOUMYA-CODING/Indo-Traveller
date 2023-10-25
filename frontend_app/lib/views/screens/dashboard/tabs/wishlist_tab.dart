@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_app/constants/sizes.dart';
 import 'package:frontend_app/views/widgets/common/custom_tab_header.dart';
-import 'package:frontend_app/views/widgets/trips/empty_trip_section.dart';
+import 'package:frontend_app/views/widgets/wishlist/empty_wishlist_section.dart';
 
-class TripTab extends StatelessWidget {
-  const TripTab({super.key});
+class WishlistTab extends StatelessWidget {
+  const WishlistTab({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,9 +12,9 @@ class TripTab extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            CustomTabHeader(title: "Trip"),
+            CustomTabHeader(title: "Wishlists"),
             SizedBox(height: AppSizes.spaceBtwItems),
-            EmptyTripSection(),
+            EmptyWishlistSection(),
           ],
         ),
       ),

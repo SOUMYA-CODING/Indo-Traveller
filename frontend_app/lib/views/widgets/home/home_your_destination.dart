@@ -1,28 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_app/constants/sizes.dart';
-import 'package:frontend_app/controllers/dashboard/dashboard_controller.dart';
 import 'package:frontend_app/views/widgets/card/property_card.dart';
 import 'package:frontend_app/views/widgets/common/custom_section_heading.dart';
 
-class HomeRecommendedPlaces extends StatelessWidget {
-  const HomeRecommendedPlaces({
-    super.key,
-  });
+class HomeYourDestination extends StatelessWidget {
+  const HomeYourDestination({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding:
-              const EdgeInsets.symmetric(horizontal: AppSizes.defaultSpace),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: AppSizes.defaultSpace),
           child: CustomSectionHeading(
-            title: "Recommended Places",
-            showActionButton: true,
-            onPressed: () => DashboardController.instance.onTap(1),
+            title: "Your Destination",
+            showActionButton: false,
           ),
         ),
-        const SizedBox(height: AppSizes.spaceBtwItems - 10),
+        const SizedBox(height: AppSizes.spaceBtwItems),
         Padding(
           padding:
               const EdgeInsets.symmetric(horizontal: AppSizes.defaultSpace),

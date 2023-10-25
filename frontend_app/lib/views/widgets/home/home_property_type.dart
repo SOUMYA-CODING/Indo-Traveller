@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_app/constants/color.dart';
 import 'package:frontend_app/constants/sizes.dart';
 import 'package:frontend_app/controllers/property_type/property_type_controller.dart';
-import 'package:frontend_app/views/widgets/common/custom_image_text.dart';
+import 'package:frontend_app/views/widgets/card/property_type_card.dart';
 import 'package:frontend_app/views/widgets/common/custom_section_heading.dart';
 import 'package:get/get.dart';
 
@@ -20,7 +21,7 @@ class HomePropertyType extends StatelessWidget {
           const CustomSectionHeading(
             title: "Popular Property",
             showActionButton: false,
-            textColor: Colors.white,
+            textColor: AppColor.textWhite,
           ),
           const SizedBox(height: AppSizes.spaceBtwItems),
           SizedBox(
@@ -33,7 +34,7 @@ class HomePropertyType extends StatelessWidget {
                 itemBuilder: (_, index) {
                   final propertyType =
                       propertyTypeController.propertyTypeList[index];
-                  return CustomImageText(
+                  return PropertyTypeCard(
                     image: propertyType.icon,
                     title: propertyType.name,
                     onTap: () {

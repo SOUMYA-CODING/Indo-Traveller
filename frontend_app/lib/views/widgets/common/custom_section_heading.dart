@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_app/constants/color.dart';
 
 class CustomSectionHeading extends StatelessWidget {
   final String title, buttonTitle;
@@ -9,7 +10,7 @@ class CustomSectionHeading extends StatelessWidget {
   const CustomSectionHeading({
     super.key,
     required this.title,
-    this.buttonTitle = "View All",
+    this.buttonTitle = "Explore All",
     this.textColor,
     required this.showActionButton,
     this.onPressed,
@@ -28,7 +29,15 @@ class CustomSectionHeading extends StatelessWidget {
                 .titleLarge!
                 .copyWith(color: textColor, fontWeight: FontWeight.bold)),
         if (showActionButton)
-          TextButton(onPressed: onPressed, child: Text(buttonTitle)),
+          TextButton(
+              onPressed: onPressed,
+              child: Text(
+                buttonTitle,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium!
+                    .copyWith(color: AppColor.darkerGrey),
+              )),
       ],
     );
   }

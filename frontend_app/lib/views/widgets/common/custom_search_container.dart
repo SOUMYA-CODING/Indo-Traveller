@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_app/constants/extension.dart';
+import 'package:frontend_app/constants/color.dart';
 import 'package:frontend_app/constants/sizes.dart';
 import 'package:frontend_app/devices/device_utility.dart';
 import 'package:iconsax/iconsax.dart';
@@ -27,7 +27,7 @@ class CustomSearchContainer extends StatelessWidget {
         decoration: BoxDecoration(
           color: showBackground ? Colors.white : Colors.transparent,
           borderRadius: BorderRadius.circular(AppSizes.cardRadiusLg),
-          border: showBorder ? Border.all(color: Colors.white) : null,
+          border: showBorder ? Border.all(color: AppColor.white) : Border.all(color: AppColor.black),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

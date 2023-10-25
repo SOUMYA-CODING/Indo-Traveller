@@ -5,6 +5,9 @@ import 'package:frontend_app/views/screens/authentication/registration/otp_scree
 import 'package:frontend_app/views/screens/authentication/registration/registration_confirm_screen.dart';
 import 'package:frontend_app/views/screens/authentication/registration/registration_screen.dart';
 import 'package:frontend_app/views/screens/dashboard/dashboard_tab.dart';
+import 'package:frontend_app/views/screens/notification/notification_screen.dart';
+import 'package:frontend_app/views/screens/property/property_details_screen.dart';
+import 'package:frontend_app/views/screens/reservation/reservation_screen.dart';
 import 'package:frontend_app/views/screens/start/onboarding_screen.dart';
 import 'package:frontend_app/views/screens/start/splash_screen.dart';
 import 'package:get/get.dart';
@@ -54,6 +57,27 @@ class AppRoute {
       name: RouteNames.dashboardScreen,
       page: () => const DashboardScreen(),
       transition: Transition.rightToLeft,
+    ),
+
+    // Notification
+    GetPage(
+      name: RouteNames.notificationScreen,
+      page: () => const NotificationScreen(),
+      transition: Transition.downToUp,
+    ),
+
+    // Property Details
+    GetPage(
+      name: RouteNames.propertyDetailsScreen,
+      page: () => const PropertyDetailsScreen(),
+      transition: Transition.rightToLeft,
+    ),
+
+    // Reservation
+    GetPage(
+      name: RouteNames.reservationScreen,
+      page: () => const ReservationScreen(),
+      transition: Transition.downToUp,
     ),
   ];
 }
