@@ -20,7 +20,7 @@ class AmenityAdmin(admin.ModelAdmin):
 
 @admin.register(Property)
 class PropertyAdmin(admin.ModelAdmin):
-    list_display = ('title', 'price_per_night', 'is_active', 'property_type')
+    list_display = ('title', 'price_per_night', 'is_active', 'is_reserved', 'property_type')
     list_filter = ('is_active', 'property_type')
     search_fields = ('title',)
 

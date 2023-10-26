@@ -15,11 +15,145 @@ from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from random import randint
 
-from core.models import UserProfile, PropertyType, Amenity, Property, PropertyImage, Booking, Review, Payment
+from core.models import UserProfile, PropertyType, Amenity, Property, Booking, Review, Payment
 from . serializer import (
     UserProfileSerializer, PropertyTypeSerializer, AmenitySerializer, PropertySerializer,
-    PropertyImageSerializer, BookingSerializer, ReviewSerializer, PaymentSerializer
+    BookingSerializer, ReviewSerializer, PaymentSerializer,
+    UserLoginSerializer, UserRegistrationSerializer, UserLogoutSerializer, UpdatePasswordSerializer,
+    SendPasswordResetEmailSerializer,
 )
+
+
+# ----------------------------------------- Authentication -----------------------------------------
+
+# User Login
+@swagger_auto_schema(method='POST', request_body=UserLoginSerializer)
+@api_view(['POST'])
+def user_login(request):
+    serializer = UserLoginSerializer(data=request.data)
+
+    if serializer.is_valid():
+        username = serializer.validated_data['username']
+        password = serializer.validated_data['password']
+
+        try:
+            user = UserProfile.objects.get(username=username)
+        except UserProfile.DoesNotExist:
+            return Response({'message': 'User does not exist.'}, status=status.HTTP_404_NOT_FOUND)
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            refresh = RefreshToken.for_user(user)
+            access_token = str(refresh.access_token)
+            refresh_token = str(refresh)
+
+            token = {
+                'access_token': access_token,
+                'refresh_token': refresh_token,
+            }
+
+            user_serializer = UserProfileSerializer(user)
+            return Response({'message': 'Login successfully.', 'tokens': token, 'data': user_serializer.data, }, status=status.HTTP_200_OK)
+        else:
+            return Response({'message': 'Invalid username or password.'}, status=status.HTTP_401_UNAUTHORIZED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+# User Registration
+@swagger_auto_schema(method='POST', request_body=UserRegistrationSerializer)
+@api_view(['POST'])
+def user_registration(request):
+    serializer = UserRegistrationSerializer(data=request.data)
+
+    if serializer.is_valid():
+        email = serializer.validated_data.get('email')
+        username = serializer.validated_data.get('username')
+
+        if UserProfile.objects.filter(Q(email=email) | Q(username=username)).exists():
+            return Response({'message': 'User with this email or username already exists.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        user = serializer.save()
+        refresh = RefreshToken.for_user(user)
+        access_token = str(refresh.access_token)
+        refresh_token = str(refresh)
+
+        token = {
+            'access_token': access_token,
+            'refresh_token': refresh_token,
+        }
+
+        user_serializer = UserProfileSerializer(user)
+
+        return Response({'message': 'Registration successfully.', 'tokens': token, 'data': user_serializer.data, }, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+# User Logout
+@swagger_auto_schema(method='POST', request_body=UserLogoutSerializer)
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def user_logout(request):
+    logout(request)
+    return Response({'message': 'Logged out successfully.'}, status=status.HTTP_200_OK)
+
+
+# Send Password Reset Link
+@swagger_auto_schema(method='POST', request_body=SendPasswordResetEmailSerializer)
+@api_view(['POST'])
+def send_password_reset_email(request):
+    serializer = SendPasswordResetEmailSerializer(data=request.data)
+    if serializer.is_valid():
+        email = serializer.validated_data.get('email')
+
+        if UserProfile.objects.filter(email=email).exists():
+            user = UserProfile.objects.get(email=email)
+            uid = urlsafe_base64_encode(force_bytes(user.id))
+            token = PasswordResetTokenGenerator().make_token(user)
+            link = 'https://news-backend-api.onrender.com/api/auth/update-user-password/'+uid+'/'+token
+
+            body = "Click on the link : "+link
+            data = {
+                "subject": "Reset your password",
+                "body": body,
+                "to_email": user.email,
+            }
+
+            Util.send_email(data)
+
+            return Response({'message': 'Password reset link sent. Please check your email'}, status=status.HTTP_200_OK)
+        else:
+            return Response({'message': 'Your are not a user'}, status=status.HTTP_404_NOT_FOUND)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+# User Password Update
+@swagger_auto_schema(method='POST', request_body=UpdatePasswordSerializer)
+@api_view(['POST'])
+def user_password_update(request, uid, token):
+    try:
+        user_id = urlsafe_base64_decode(uid).decode()
+        user = UserProfile.objects.get(id=user_id)
+
+        if not PasswordResetTokenGenerator().check_token(user, token):
+            return Response({'message': 'Invalid or expired token.'}, status=status.HTTP_401_UNAUTHORIZED)
+
+        serializer = UpdatePasswordSerializer(data=request.data)
+        if serializer.is_valid():
+            password = serializer.validated_data.get('password')
+            user.set_password(password)
+            user.save()
+            return Response({'message': 'Password updated successfully.'}, status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    except DjangoUnicodeDecodeError:
+        return Response({'message': 'Invalid UID.'}, status=status.HTTP_400_BAD_REQUEST)
+    except UserProfile.DoesNotExist:
+        return Response({'message': 'User not found.'}, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return Response({'message': 'An error occurred while updating the password.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 # ----------------------------------------- User -----------------------------------------

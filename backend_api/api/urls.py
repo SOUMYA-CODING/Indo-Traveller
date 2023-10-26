@@ -1,6 +1,19 @@
 from django.urls import path, include
 from . import views
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from rest_framework_simplejwt.views import TokenRefreshView
+
+# Auth
+auth_patterns =[
+    path('login/', views.user_login, name='auth-login'),
+    path('registration/', views.user_registration, name='auth-registration'),
+    path('logout/', views.user_logout, name='auth-logout'),
+    path('reset-password-link/', views.send_password_reset_email,
+        name='auth-reset-password-link'),
+    path('update-user-password/<uid>/<token>/',
+        views.user_password_update, name='user-password-update'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+]
+
 
 # User
 user_patterns = [
@@ -66,6 +79,7 @@ payment_patterns = [
 ]
 
 urlpatterns = [
+    path('auth/', include(auth_patterns)),
     path('users/', include(user_patterns)),
     path('property_type/', include(property_type_patterns)),
     path('amenity/', include(amenity_patterns)),

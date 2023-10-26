@@ -75,19 +75,20 @@ class Property(models.Model):
 
     state = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
-    pin_code = models.CharField(max_length=255)
     address = models.TextField()
 
-    instant_bookable = models.BooleanField(default=False)
+    number_of_queen_bedrooms = models.PositiveIntegerField(null=True)
 
-    number_of_queen_bedrooms = models.PositiveIntegerField()
-    number_of_king_bedrooms = models.PositiveIntegerField()
-    number_of_double_bedrooms = models.PositiveIntegerField()
-    number_of_single_bedrooms = models.PositiveIntegerField()
+    number_of_queen_beds = models.PositiveIntegerField(null=True)
+    number_of_king_beds = models.PositiveIntegerField(null=True)
+    number_of_double_beds = models.PositiveIntegerField(null=True)
+    number_of_single_beds = models.PositiveIntegerField(null=True)
 
     amenities = models.ManyToManyField(Amenity)
 
     is_active = models.BooleanField(default=True)
+
+    is_reserved = models.BooleanField(default=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -97,7 +98,7 @@ class Property(models.Model):
 
 
 class PropertyImage(models.Model):
-    property = models.ForeignKey('Property', on_delete=models.CASCADE)
+    property = models.ForeignKey('Property', on_delete=models.CASCADE, related_name='property_images')
     property_images = CloudinaryField(
         'property_images/', blank=True, null=True, transformation={
             'fetch_format': 'webp',
