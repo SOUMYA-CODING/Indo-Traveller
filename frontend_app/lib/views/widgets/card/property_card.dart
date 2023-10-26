@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_app/constants/color.dart';
 import 'package:frontend_app/constants/sizes.dart';
+import 'package:frontend_app/controllers/property/property_details_controller.dart';
 import 'package:frontend_app/routes/route_names.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 class PropertyCard extends StatelessWidget {
   final int id;
-  final double price;
+  final String price;
   final String location;
   final String image;
 
@@ -22,7 +23,11 @@ class PropertyCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.toNamed(RouteNames.propertyDetailsScreen),
+      onTap: () async {
+        Get.put(PropertyDetailsController());
+        await PropertyDetailsController.instance.fetchPropertyDetailsFromId(id);
+        Get.toNamed(RouteNames.propertyDetailsScreen);
+      },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

@@ -34,7 +34,7 @@ class HomeYourDestination extends StatelessWidget {
             ),
             itemBuilder: (_, index) => const PropertyCard(
               id: 5,
-              price: 2500,
+              price: "2500",
               location: "Havelock Island",
               image:
                   "https://a0.muscache.com/im/pictures/33bd05ed-6c29-4d74-99a6-201ff74e53d1.jpg?im_w=1200",

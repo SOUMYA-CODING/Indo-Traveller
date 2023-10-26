@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_app/constants/sizes.dart';
 import 'package:frontend_app/controllers/dashboard/dashboard_controller.dart';
+import 'package:frontend_app/controllers/property/property_controller.dart';
+import 'package:frontend_app/data/model/property_model.dart';
 import 'package:frontend_app/views/widgets/card/property_card.dart';
 import 'package:frontend_app/views/widgets/common/custom_section_heading.dart';
+import 'package:get/get.dart';
 
 class HomeRecommendedPlaces extends StatelessWidget {
   const HomeRecommendedPlaces({
@@ -11,6 +14,7 @@ class HomeRecommendedPlaces extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final propertyController = Get.put(PropertyController());
     return Column(
       children: [
         Padding(
@@ -23,26 +27,30 @@ class HomeRecommendedPlaces extends StatelessWidget {
           ),
         ),
         const SizedBox(height: AppSizes.spaceBtwItems - 10),
-        Padding(
-          padding:
-              const EdgeInsets.symmetric(horizontal: AppSizes.defaultSpace),
-          child: GridView.builder(
-            itemCount: 4,
-            shrinkWrap: true,
-            padding: EdgeInsets.zero,
-            physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              mainAxisSpacing: AppSizes.gridViewSpacing,
-              crossAxisSpacing: AppSizes.gridViewSpacing,
-              mainAxisExtent: 200,
-            ),
-            itemBuilder: (_, index) => const PropertyCard(
-              id: 5,
-              price: 2500,
-              location: "Havelock Island",
-              image:
-                  "https://a0.muscache.com/im/pictures/33bd05ed-6c29-4d74-99a6-201ff74e53d1.jpg?im_w=1200",
+        Obx(
+          () => Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: AppSizes.defaultSpace),
+            child: GridView.builder(
+              itemCount: propertyController.propertyList.length,
+              shrinkWrap: true,
+              padding: EdgeInsets.zero,
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: AppSizes.gridViewSpacing,
+                crossAxisSpacing: AppSizes.gridViewSpacing,
+                mainAxisExtent: 200,
+              ),
+              itemBuilder: (_, index) {
+                Datum property = propertyController.propertyList[index];
+                return PropertyCard(
+                  id: property.id,
+                  price: property.pricePerNight,
+                  location: property.city,
+                  image: property.propertyImages[1].propertyImages,
+                );
+              },
             ),
           ),
         ),

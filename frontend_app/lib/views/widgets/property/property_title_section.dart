@@ -3,7 +3,14 @@ import 'package:frontend_app/constants/color.dart';
 import 'package:frontend_app/constants/sizes.dart';
 
 class PropertyTitleSection extends StatelessWidget {
-  const PropertyTitleSection({super.key});
+  final String title;
+  final String location;
+
+  const PropertyTitleSection({
+    super.key,
+    required this.title,
+    required this.location,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -13,11 +20,11 @@ class PropertyTitleSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Lake View Premium Room in Alleppey",
+            title,
             style: Theme.of(context).textTheme.headlineMedium,
           ),
           Text(
-            "Kainakary South, Kerala, India",
+            location,
             style: Theme.of(context).textTheme.titleLarge,
           ),
           const SizedBox(height: AppSizes.md),

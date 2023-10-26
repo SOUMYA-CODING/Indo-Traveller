@@ -5,8 +5,11 @@ import 'package:frontend_app/routes/route_names.dart';
 import 'package:get/get.dart';
 
 class PropertyReservationSection extends StatelessWidget {
+  final String pricePerNight;
+
   const PropertyReservationSection({
     super.key,
+    required this.pricePerNight,
   });
 
   @override
@@ -32,10 +35,8 @@ class PropertyReservationSection extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "Rs. 2500 /- night",
-                style: Theme.of(context)
-                    .textTheme
-                    .titleLarge,
+                "Rs. $pricePerNight /- night",
+                style: Theme.of(context).textTheme.titleLarge,
               ),
               InkWell(
                 onTap: () => Get.toNamed(RouteNames.reservationScreen),
@@ -43,7 +44,8 @@ class PropertyReservationSection extends StatelessWidget {
                   "Nov 1 - 6",
                   style: Theme.of(context)
                       .textTheme
-                      .bodyLarge!.copyWith(decoration: TextDecoration.underline),
+                      .bodyLarge!
+                      .copyWith(decoration: TextDecoration.underline),
                 ),
               ),
             ],

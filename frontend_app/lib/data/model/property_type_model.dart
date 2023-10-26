@@ -1,20 +1,26 @@
+// To parse this JSON data, do
+//
+//     final propertyTypeModel = propertyTypeModelFromJson(jsonString);
+
 import 'dart:convert';
 
-PropertyType propertyTypeFromJson(String str) =>
-    PropertyType.fromJson(json.decode(str));
+PropertyTypeModel propertyTypeModelFromJson(String str) =>
+    PropertyTypeModel.fromJson(json.decode(str));
 
-String propertyTypeToJson(PropertyType data) => json.encode(data.toJson());
+String propertyTypeModelToJson(PropertyTypeModel data) =>
+    json.encode(data.toJson());
 
-class PropertyType {
+class PropertyTypeModel {
   String message;
   List<Datum> data;
 
-  PropertyType({
+  PropertyTypeModel({
     required this.message,
     required this.data,
   });
 
-  factory PropertyType.fromJson(Map<String, dynamic> json) => PropertyType(
+  factory PropertyTypeModel.fromJson(Map<String, dynamic> json) =>
+      PropertyTypeModel(
         message: json["message"],
         data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
       );

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_app/constants/color.dart';
 import 'package:frontend_app/constants/sizes.dart';
 import 'package:frontend_app/views/widgets/card/review_card.dart';
 import 'package:iconsax/iconsax.dart';
@@ -45,24 +44,6 @@ class PropertyReviewSection extends StatelessWidget {
                     hostLocation: "Amravati, India",
                   ),
                 ),
-              ),
-            ),
-          ),
-          const SizedBox(height: AppSizes.spaceBtwItems),
-          SizedBox(
-            width: double.infinity,
-            height: 55,
-            child: OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                side: const BorderSide(color: AppColor.black),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(AppSizes.cardRadiusMd),
-                ),
-              ),
-              onPressed: () {},
-              child: Text(
-                "Show all 106 reviews",
-                style: Theme.of(context).textTheme.titleMedium,
               ),
             ),
           ),

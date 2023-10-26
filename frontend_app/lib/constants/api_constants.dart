@@ -5,4 +5,10 @@ class AppApiConstants {
 
   // Property Types
   static const String propertyType = "property_type/";  // GET
+
+  // Property
+  static const String propertyList = "property/";  // GET
+
+  // User
+  static const String userDetails = "users/";  // GET
 }

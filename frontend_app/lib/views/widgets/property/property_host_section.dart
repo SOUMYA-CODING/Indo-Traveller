@@ -3,7 +3,14 @@ import 'package:frontend_app/constants/color.dart';
 import 'package:frontend_app/constants/sizes.dart';
 
 class PropertyHostSection extends StatelessWidget {
-  const PropertyHostSection({super.key});
+  final String firstName;
+  final String profileImage;
+
+  const PropertyHostSection({
+    super.key,
+    required this.firstName,
+    required this.profileImage,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,14 +23,13 @@ class PropertyHostSection extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  "Hosted by Akhil",
+                  "Hosted by $firstName",
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
               ),
-              const CircleAvatar(
+              CircleAvatar(
                 radius: AppSizes.iconMd,
-                backgroundImage: NetworkImage(
-                    "https://a0.muscache.com/im/pictures/user/a9546fd7-c966-462b-a687-47305540ce73.jpg?im_w=240"),
+                backgroundImage: NetworkImage(profileImage),
               ),
             ],
           ),

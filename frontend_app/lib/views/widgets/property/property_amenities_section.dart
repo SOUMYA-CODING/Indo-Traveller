@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_app/constants/color.dart';
 import 'package:frontend_app/constants/sizes.dart';
+import 'package:frontend_app/data/model/property_details_model.dart';
 
 class PropertyAmenitiesSection extends StatelessWidget {
-  const PropertyAmenitiesSection({super.key});
+  final List<Amenity> amenitiesList;
+
+  const PropertyAmenitiesSection({super.key, required this.amenitiesList});
 
   @override
   Widget build(BuildContext context) {
@@ -17,24 +20,27 @@ class PropertyAmenitiesSection extends StatelessWidget {
             style: Theme.of(context).textTheme.headlineMedium,
           ),
           const SizedBox(height: AppSizes.spaceBtwItems),
-
-          const SizedBox(height: AppSizes.spaceBtwItems),
-          SizedBox(
-            width: double.infinity,
-            height: 55,
-            child: OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                side: const BorderSide(color: AppColor.black),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(AppSizes.cardRadiusMd),
-                ),
-              ),
-              onPressed: () {},
-              child: Text(
-                "Show all 20 amenities",
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-            ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: amenitiesList.map((amenity) {
+              return Row(
+                children: [
+                  Container(
+                    width: AppSizes.sm,
+                    height: AppSizes.sm,
+                    decoration: BoxDecoration(
+                      color: AppColor.black,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  const SizedBox(width: AppSizes.md),
+                  Expanded(
+                    child: Text(amenity.name,
+                        style: Theme.of(context).textTheme.bodyLarge),
+                  ),
+                ],
+              );
+            }).toList(),
           ),
           const SizedBox(height: AppSizes.md),
           const Divider(color: AppColor.grey, thickness: 1),
