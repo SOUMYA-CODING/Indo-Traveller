@@ -5,7 +5,6 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
 from django.utils.encoding import smart_str, force_bytes, DjangoUnicodeDecodeError
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
@@ -17,10 +16,9 @@ from random import randint
 
 from core.models import UserProfile, PropertyType, Amenity, Property, Booking, Review, Payment
 from . serializer import (
-    UserProfileSerializer, PropertyTypeSerializer, AmenitySerializer, PropertySerializer,
-    BookingSerializer, ReviewSerializer, PaymentSerializer,
-    UserLoginSerializer, UserRegistrationSerializer, UserLogoutSerializer, UpdatePasswordSerializer,
-    SendPasswordResetEmailSerializer,
+    UserProfileSerializer, PropertyTypesSerializer, AmenitiesSerializer, PropertyListSerializer,
+    PropertyDetailsSerializer, ReviewSerializer, BookingSerializer, PaymentSerializer, UserLoginSerializer,
+    UserRegistrationSerializer, SendPasswordResetEmailSerializer, UpdatePasswordSerializer, UserLogoutSerializer,
 )
 
 
@@ -236,11 +234,11 @@ def get_property_type_or_404(property_type_id):
 
 
 # Create Property Type
-@swagger_auto_schema(method='POST', request_body=PropertyTypeSerializer)
+@swagger_auto_schema(method='POST', request_body=PropertyTypesSerializer)
 @api_view(['POST'])
 # @permission_classes([IsAuthenticated])
 def create_property_type(request):
-    serializer = PropertyTypeSerializer(data=request.data)
+    serializer = PropertyTypesSerializer(data=request.data)
     if serializer.is_valid:
         serializer.save()
         return Response({'message': 'Property type created successfully', 'data': serializer.data}, status=status.HTTP_201_CREATED)
@@ -252,7 +250,7 @@ def create_property_type(request):
 # @permission_classes([IsAuthenticated])
 def property_type_list(request):
     property_type = PropertyType.objects.all()
-    serializer = PropertyTypeSerializer(
+    serializer = PropertyTypesSerializer(
         property_type, many=True, context={'request': request})
     return Response({'message': 'Property type list retrieved successfully', 'data': serializer.data}, status=status.HTTP_200_OK)
 
@@ -265,13 +263,13 @@ def property_type_details(request, property_type_id):
     if property_type is None:
         return Response({'message': 'Property type not found'}, status=status.HTTP_404_NOT_FOUND)
 
-    serializer = PropertyTypeSerializer(
+    serializer = PropertyTypesSerializer(
         property_type, context={'request': request})
     return Response({'message': 'Property type details retrieved successfully', 'data': serializer.data}, status=status.HTTP_200_OK)
 
 
 # Update Category
-@swagger_auto_schema(method='PUT', request_body=PropertyTypeSerializer)
+@swagger_auto_schema(method='PUT', request_body=PropertyTypesSerializer)
 @api_view(['PUT'])
 # @permission_classes([IsAuthenticated])
 def update_property_type(request, property_type_id):
@@ -279,7 +277,7 @@ def update_property_type(request, property_type_id):
     if property_type is None:
         return Response({'message': 'Property type not found'}, status=status.HTTP_404_NOT_FOUND)
 
-    serializer = PropertyTypeSerializer(property_type, data=request.data)
+    serializer = PropertyTypesSerializer(property_type, data=request.data)
     if serializer.is_valid():
         serializer.save()
         return Response({'message': 'Property type updated successfully', 'data': serializer.data}, status=status.HTTP_200_OK)
@@ -308,11 +306,11 @@ def get_amenity_or_404(amenity_id):
 
 
 # Create amenity
-@swagger_auto_schema(method='POST', request_body=AmenitySerializer)
+@swagger_auto_schema(method='POST', request_body=AmenitiesSerializer)
 @api_view(['POST'])
 # @permission_classes([IsAuthenticated])
 def create_amenity(request):
-    serializer = AmenitySerializer(data=request.data)
+    serializer = AmenitiesSerializer(data=request.data)
     if serializer.is_valid:
         serializer.save()
         return Response({'message': 'Amenity created successfully', 'data': serializer.data}, status=status.HTTP_201_CREATED)
@@ -324,7 +322,7 @@ def create_amenity(request):
 # @permission_classes([IsAuthenticated])
 def amenity_list(request):
     amenity = Amenity.objects.all()
-    serializer = AmenitySerializer(
+    serializer = AmenitiesSerializer(
         amenity, many=True, context={'request': request})
     return Response({'message': 'Amenity list retrieved successfully', 'data': serializer.data}, status=status.HTTP_200_OK)
 
@@ -337,12 +335,12 @@ def amenity_details(request, amenity_id):
     if amenity is None:
         return Response({'message': 'Amenity not found'}, status=status.HTTP_404_NOT_FOUND)
 
-    serializer = AmenitySerializer(amenity, context={'request': request})
+    serializer = AmenitiesSerializer(amenity, context={'request': request})
     return Response({'message': 'Amenity details retrieved successfully', 'data': serializer.data}, status=status.HTTP_200_OK)
 
 
 # Update Amenity
-@swagger_auto_schema(method='PUT', request_body=AmenitySerializer)
+@swagger_auto_schema(method='PUT', request_body=AmenitiesSerializer)
 @api_view(['PUT'])
 # @permission_classes([IsAuthenticated])
 def update_amenity(request, amenity_id):
@@ -350,7 +348,7 @@ def update_amenity(request, amenity_id):
     if amenity is None:
         return Response({'message': 'Amenity not found'}, status=status.HTTP_404_NOT_FOUND)
 
-    serializer = AmenitySerializer(amenity, data=request.data)
+    serializer = AmenitiesSerializer(amenity, data=request.data)
     if serializer.is_valid():
         serializer.save()
         return Response({'message': 'Amenity updated successfully', 'data': serializer.data}, status=status.HTTP_200_OK)
@@ -378,18 +376,12 @@ def get_property_or_404(property_id):
         return None
 
 
-class PropertyPagination(PageNumberPagination):
-    page_size = 5
-    page_size_query_param = 'page_size'
-    max_page_size = 100
-
-
 # Create property
-@swagger_auto_schema(method='POST', request_body=PropertySerializer)
+@swagger_auto_schema(method='POST', request_body=PropertyDetailsSerializer)
 @api_view(['POST'])
 # @permission_classes([IsAuthenticated])
 def create_property(request):
-    serializer = PropertySerializer(data=request.data)
+    serializer = PropertyDetailsSerializer(data=request.data)
     if serializer.is_valid:
         serializer.save()
         return Response({'message': 'Property created successfully', 'data': serializer.data}, status=status.HTTP_201_CREATED)
@@ -401,11 +393,9 @@ def create_property(request):
 # @permission_classes([IsAuthenticated])
 def property_list(request):
     property = Property.objects.all()
-    paginator = PropertyPagination()
-    result_page = paginator.paginate_queryset(property, request)
-    serializer = PropertySerializer(
-        result_page, many=True, context={'request': request})
-    return paginator.get_paginated_response({'message': 'Property list retrieved successfully', 'data': serializer.data})
+    serializer = PropertyListSerializer(
+        property, many=True, context={'request': request})
+    return Response({'message': 'Property list retrieved successfully', 'data': serializer.data})
 
 
 # Property Details
@@ -416,12 +406,13 @@ def property_details(request, property_id):
     if property is None:
         return Response({'message': 'Property not found'}, status=status.HTTP_404_NOT_FOUND)
 
-    serializer = PropertySerializer(property, context={'request': request})
+    serializer = PropertyDetailsSerializer(
+        property, context={'request': request})
     return Response({'message': 'Property details retrieved successfully', 'data': serializer.data}, status=status.HTTP_200_OK)
 
 
 # Update Property
-@swagger_auto_schema(method='PUT', request_body=PropertySerializer)
+@swagger_auto_schema(method='PUT', request_body=PropertyDetailsSerializer)
 @api_view(['PUT'])
 # @permission_classes([IsAuthenticated])
 def update_property(request, property_id):
@@ -429,7 +420,7 @@ def update_property(request, property_id):
     if property is None:
         return Response({'message': 'Property not found'}, status=status.HTTP_404_NOT_FOUND)
 
-    serializer = PropertySerializer(property, data=request.data)
+    serializer = PropertyDetailsSerializer(property, data=request.data)
     if serializer.is_valid():
         serializer.save()
         return Response({'message': 'Property updated successfully', 'data': serializer.data}, status=status.HTTP_200_OK)
@@ -467,9 +458,10 @@ def search_property(request):
 
     property = Property.objects.filter(Q(title__icontains=query))
 
-    serializer = PropertySerializer(
+    serializer = PropertyDetailsSerializer(
         property, many=True, context={'request': request})
     return Response({'message': 'Articles matching the search query retrieved successfully', 'data': serializer.data}, status=status.HTTP_200_OK)
+
 
 
 # ----------------------------------------- Booking -----------------------------------------

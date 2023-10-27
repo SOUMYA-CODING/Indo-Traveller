@@ -30,20 +30,18 @@ class UserProfileSerializer(serializers.ModelSerializer):
         return None
 
 
-class PropertyTypeSerializer(serializers.ModelSerializer):
-    icon = serializers.SerializerMethodField()
-
+class PropertyTypesSerializer(serializers.ModelSerializer):
     class Meta:
         model = PropertyType
-        fields = '__all__'
+        fields = [
+            'id',
+            'name',
+            'icon',
+            'is_active',
+        ]
 
-    def get_icon(self, obj):
-        if obj.icon:
-            return obj.icon.url
-        return None
 
-
-class AmenitySerializer(serializers.ModelSerializer):
+class AmenitiesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Amenity
         fields = [
@@ -53,19 +51,12 @@ class AmenitySerializer(serializers.ModelSerializer):
         ]
 
 
-class PropertyImageSerializer(serializers.ModelSerializer):
+class PropertyImagesSerializer(serializers.ModelSerializer):
+    property_images = serializers.SerializerMethodField()
+
     class Meta:
         model = PropertyImage
         fields = ('property_images',)
-
-
-class PropertySerializer(serializers.ModelSerializer):
-    property_images = PropertyImageSerializer(many=True, read_only=True)
-    amenities = AmenitySerializer(many=True, read_only=True)
-
-    class Meta:
-        model = Property
-        fields = '__all__'
 
     def get_property_images(self, obj):
         if obj.property_images:
@@ -73,27 +64,61 @@ class PropertySerializer(serializers.ModelSerializer):
         return None
 
 
-class BookingSerializer(serializers.ModelSerializer):
-    property = PropertySerializer()
-    guest = UserProfileSerializer()
+class PropertyListSerializer(serializers.ModelSerializer):
+    property_images = PropertyImagesSerializer(many=True)
 
     class Meta:
-        model = Booking
+        model = Property
+        fields = [
+            'id',
+            'property_type',
+            'property_images',
+            'city',
+            'state',
+            'price_per_night',
+        ]
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        if 'property_images' in data and data['property_images']:
+            data['property_images'] = data['property_images'][0]
+        return data
+
+
+class PropertyDetailsSerializer(serializers.ModelSerializer):
+    property_images = PropertyImagesSerializer(many=True)
+    amenities = AmenitiesSerializer(many=True)
+    host = UserProfileSerializer()
+    property_type = PropertyTypesSerializer()
+
+    class Meta:
+        model = Property
         fields = '__all__'
 
 
+class PropertyFilterSerializer(serializers.Serializer):
+    property_type_id = serializers.IntegerField()
+    
+
 class ReviewSerializer(serializers.ModelSerializer):
-    property = PropertySerializer()
+    property = PropertyDetailsSerializer()
     user = UserProfileSerializer()
 
     class Meta:
         model = Review
         fields = '__all__'
 
+class BookingSerializer(serializers.ModelSerializer):
+    property = PropertyDetailsSerializer()
+    guest = UserProfileSerializer()
+
+    class Meta:
+        model = Booking
+        fields = '__all__'
 
 class PaymentSerializer(serializers.ModelSerializer):
     user = UserProfileSerializer()
-    property = PropertySerializer()
+    property = PropertyDetailsSerializer()
 
     class Meta:
         model = Payment
@@ -127,10 +152,11 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         user.set_password(password)
         user.save()
         return user
-    
+
 
 class SendPasswordResetEmailSerializer(serializers.Serializer):
     email = serializers.EmailField(max_length=255)
+
     class Meta:
         fields = ['email']
 
@@ -160,8 +186,19 @@ class UserLogoutSerializer(serializers.Serializer):
             try:
                 RefreshToken(refresh_token).blacklist()
             except Exception as e:
-                raise serializers.ValidationError({'error': 'Unable to blacklist token.'})
+                raise serializers.ValidationError(
+                    {'error': 'Unable to blacklist token.'})
 
             return attrs
         else:
-            raise serializers.ValidationError({'refresh_token': 'This field is required.'})
+            raise serializers.ValidationError(
+                {'refresh_token': 'This field is required.'})
+
+
+
+
+
+
+
+
+
