@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_app/constants/sizes.dart';
 import 'package:frontend_app/controllers/property/property_details_controller.dart';
-import 'package:frontend_app/controllers/user_profile/user_profile_controller.dart';
 import 'package:frontend_app/views/widgets/property/property_amenities_section.dart';
 import 'package:frontend_app/views/widgets/property/property_app_bar.dart';
 import 'package:frontend_app/views/widgets/property/property_description_section.dart';
@@ -18,46 +17,59 @@ class PropertyDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final propertyDetailsController = Get.put(PropertyDetailsController());
-    final userProfileController = Get.put(UserProfileController());
 
-    return Obx(() {
-      final propertyDetails = propertyDetailsController.propertyDetails.value;
-      final userProfileDetails = userProfileController.userProfileDetails.value;
+    return Obx(
+      () {
+        final propertyDetails = propertyDetailsController.propertyDetails.value;
 
-      return Scaffold(
-        bottomNavigationBar: PropertyReservationSection(
-          pricePerNight: propertyDetails.pricePerNight,
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              const PropertyAppBar(),
-              const SizedBox(height: AppSizes.spaceBtwItems),
-              const PropertyImageSection(),
-              const SizedBox(height: AppSizes.spaceBtwItems),
-              PropertyTitleSection(
-                title: propertyDetails.title,
-                location: "${propertyDetails.city}, ${propertyDetails.state}",
-              ),
-              const SizedBox(height: AppSizes.spaceBtwItems),
-              PropertyHostSection(
-                firstName: userProfileDetails.firstName,
-                profileImage: userProfileDetails.profilePicture,
-              ),
-              const SizedBox(height: AppSizes.spaceBtwItems),
-              PropertyDescriptionSection(
-                description: propertyDetails.description,
-              ),
-              const SizedBox(height: AppSizes.spaceBtwItems),
-              PropertyAmenitiesSection(
-                amenitiesList: propertyDetails.amenities,
-              ),
-              const SizedBox(height: AppSizes.spaceBtwItems),
-              const PropertyReviewSection(),
-            ],
+        return Scaffold(
+          bottomNavigationBar: PropertyReservationSection(
+            pricePerNight: propertyDetails!.pricePerNight,
+            propertyImage: propertyDetails.propertyImages[0].propertyImages,
+            propertyType: propertyDetails.propertyType.name,
+            propertyTitle: propertyDetails.title,
+            propertyId: propertyDetails.id,
+            userId: 2,
           ),
-        ),
-      );
-    });
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                const PropertyAppBar(),
+                const SizedBox(height: AppSizes.spaceBtwItems),
+                PropertyImageSection(
+                  imagesList: propertyDetails.propertyImages,
+                ),
+                const SizedBox(height: AppSizes.spaceBtwItems),
+                PropertyTitleSection(
+                  title: propertyDetails.title,
+                  location: "${propertyDetails.city}, ${propertyDetails.state}",
+                ),
+                const SizedBox(height: AppSizes.spaceBtwItems),
+                PropertyHostSection(
+                  firstName: propertyDetails.host.firstName,
+                  profileImage: propertyDetails.host.profilePicture,
+                  numberOfGuestAllowed: propertyDetails.numberOfGuestAllowed,
+                  numberOfBedroom: propertyDetails.numberOfBedrooms,
+                  numberOfBeds: propertyDetails.numberOfQueenBeds +
+                      propertyDetails.numberOfDoubleBeds +
+                      propertyDetails.numberOfKingBeds +
+                      propertyDetails.numberOfSingleBeds,
+                ),
+                const SizedBox(height: AppSizes.spaceBtwItems),
+                PropertyDescriptionSection(
+                  description: propertyDetails.description,
+                ),
+                const SizedBox(height: AppSizes.spaceBtwItems),
+                PropertyAmenitiesSection(
+                  amenitiesList: propertyDetails.amenities,
+                ),
+                const SizedBox(height: AppSizes.spaceBtwItems),
+                const PropertyReviewSection(),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 }

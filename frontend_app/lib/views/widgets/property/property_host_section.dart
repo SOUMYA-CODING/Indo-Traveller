@@ -5,11 +5,17 @@ import 'package:frontend_app/constants/sizes.dart';
 class PropertyHostSection extends StatelessWidget {
   final String firstName;
   final String profileImage;
+  final int numberOfGuestAllowed;
+  final int numberOfBedroom;
+  final int numberOfBeds;
 
   const PropertyHostSection({
     super.key,
     required this.firstName,
     required this.profileImage,
+    required this.numberOfGuestAllowed,
+    required this.numberOfBedroom,
+    required this.numberOfBeds,
   });
 
   @override
@@ -20,6 +26,7 @@ class PropertyHostSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
                 child: Text(
@@ -34,7 +41,7 @@ class PropertyHostSection extends StatelessWidget {
             ],
           ),
           Text(
-            "2 guest . 1 bedroom . 2 beds",
+            "$numberOfGuestAllowed guest . $numberOfBedroom bedroom . $numberOfBeds beds",
             style: Theme.of(context).textTheme.titleLarge,
           ),
           const SizedBox(height: AppSizes.md),

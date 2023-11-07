@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_app/constants/sizes.dart';
 import 'package:frontend_app/controllers/dashboard/dashboard_controller.dart';
-import 'package:frontend_app/controllers/property/property_controller.dart';
-import 'package:frontend_app/data/model/property_model.dart';
+import 'package:frontend_app/controllers/property/property_list_controller.dart';
+import 'package:frontend_app/data/model/property_list_model.dart';
 import 'package:frontend_app/views/widgets/card/property_card.dart';
 import 'package:frontend_app/views/widgets/common/custom_section_heading.dart';
 import 'package:get/get.dart';
@@ -14,7 +14,7 @@ class HomeRecommendedPlaces extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final propertyController = Get.put(PropertyController());
+    final propertyController = Get.put(PropertyListController());
     return Column(
       children: [
         Padding(
@@ -48,7 +48,7 @@ class HomeRecommendedPlaces extends StatelessWidget {
                   id: property.id,
                   price: property.pricePerNight,
                   location: property.city,
-                  image: property.propertyImages[1].propertyImages,
+                  image: property.propertyImages.propertyImages,
                 );
               },
             ),

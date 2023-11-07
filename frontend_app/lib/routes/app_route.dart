@@ -7,6 +7,7 @@ import 'package:frontend_app/views/screens/authentication/registration/registrat
 import 'package:frontend_app/views/screens/dashboard/dashboard_tab.dart';
 import 'package:frontend_app/views/screens/notification/notification_screen.dart';
 import 'package:frontend_app/views/screens/property/property_details_screen.dart';
+import 'package:frontend_app/views/screens/reservation/reservation_confirm_screen.dart';
 import 'package:frontend_app/views/screens/reservation/reservation_screen.dart';
 import 'package:frontend_app/views/screens/start/onboarding_screen.dart';
 import 'package:frontend_app/views/screens/start/splash_screen.dart';
@@ -77,6 +78,11 @@ class AppRoute {
     GetPage(
       name: RouteNames.reservationScreen,
       page: () => const ReservationScreen(),
+      transition: Transition.downToUp,
+    ),
+    GetPage(
+      name: RouteNames.reservationConfirmScreen,
+      page: () => const ReservationConfirmScreen(),
       transition: Transition.downToUp,
     ),
   ];

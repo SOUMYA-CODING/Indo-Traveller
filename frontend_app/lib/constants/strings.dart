@@ -7,11 +7,11 @@ class AppStrings {
   static const onboardingHeadlineThree = "Experience the best locations";
 
   static const onboardingDescriptionOne =
-      "Uncover India's natural and cultural treasures, from the Himalayan peaks to the sunny beaches";
+      "Explore India's diversity, from Himalayas to beaches. Get ready for an unforgettable adventure.";
   static const onboardingDescriptionTwo =
-      "Your India, your choice. Select your dream destination, and we'll guide you there.";
+      "Select your dream spot. Find the perfect destination for your stay in enchanting India.";
   static const onboardingDescriptionThree =
-      "Venture beyond the tourist hotspots and uncover India's best-kept secrets.";
+      "Live like a local. Immerse yourself in India's rich culture and discover hidden treasures.";
 
   // Authentication Forms
   static const String firstName = "First Name";

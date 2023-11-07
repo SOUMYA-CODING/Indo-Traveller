@@ -32,6 +32,7 @@ class ReviewCard extends StatelessWidget {
         border: Border.all(color: AppColor.darkerGrey, width: 1),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
@@ -51,11 +52,16 @@ class ReviewCard extends StatelessWidget {
           const Spacer(),
           Row(
             children: [
-              CircleAvatar(
-                radius: AppSizes.iconMd,
-                backgroundImage: NetworkImage(hostImage),
-              ),
-              const SizedBox(width: AppSizes.spaceBtwItems),
+              if (hostImage.isNotEmpty) // Conditionally show the avatar if hostImage is not empty
+                Row(
+                  children: [
+                    CircleAvatar(
+                      radius: AppSizes.iconMd,
+                      backgroundImage: NetworkImage(hostImage),
+                    ),
+                    const SizedBox(width: AppSizes.spaceBtwItems),
+                  ],
+                ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

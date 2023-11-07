@@ -33,36 +33,28 @@ class PropertyTypeModel {
 
 class Datum {
   int id;
-  String icon;
   String name;
+  String icon;
   bool isActive;
-  DateTime createdAt;
-  DateTime updatedAt;
 
   Datum({
     required this.id,
-    required this.icon,
     required this.name,
+    required this.icon,
     required this.isActive,
-    required this.createdAt,
-    required this.updatedAt,
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],
-        icon: json["icon"],
         name: json["name"],
+        icon: json["icon"],
         isActive: json["is_active"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "icon": icon,
         "name": name,
+        "icon": icon,
         "is_active": isActive,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
       };
 }

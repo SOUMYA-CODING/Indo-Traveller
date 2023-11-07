@@ -6,10 +6,20 @@ import 'package:get/get.dart';
 
 class PropertyReservationSection extends StatelessWidget {
   final String pricePerNight;
+  final String propertyImage;
+  final String propertyType;
+  final String propertyTitle;
+  final int propertyId;
+  final int userId;
 
   const PropertyReservationSection({
     super.key,
     required this.pricePerNight,
+    required this.propertyImage,
+    required this.propertyType,
+    required this.propertyTitle,
+    required this.propertyId,
+    required this.userId,
   });
 
   @override
@@ -29,24 +39,18 @@ class PropertyReservationSection extends StatelessWidget {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "Rs. $pricePerNight /- night",
+                "Price",
                 style: Theme.of(context).textTheme.titleLarge,
               ),
-              InkWell(
-                onTap: () => Get.toNamed(RouteNames.reservationScreen),
-                child: Text(
-                  "Nov 1 - 6",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyLarge!
-                      .copyWith(decoration: TextDecoration.underline),
-                ),
+              Text(
+                "Rs. $pricePerNight /- night",
+                style: Theme.of(context).textTheme.titleSmall,
               ),
             ],
           ),
@@ -63,7 +67,19 @@ class PropertyReservationSection extends StatelessWidget {
                   borderRadius: BorderRadius.circular(AppSizes.sm),
                 ),
               ),
-              onPressed: () => Get.toNamed(RouteNames.reservationScreen),
+              onPressed: () {
+                Get.toNamed(
+                  RouteNames.reservationScreen,
+                  arguments: {
+                    'pricePerNight': pricePerNight,
+                    'propertyImage': propertyImage,
+                    'propertyType': propertyType,
+                    'propertyId': propertyId,
+                    'propertyTitle': propertyTitle,
+                    'userId': userId,
+                  },
+                );
+              },
               child: Text(
                 "Reserve",
                 style: Theme.of(context)

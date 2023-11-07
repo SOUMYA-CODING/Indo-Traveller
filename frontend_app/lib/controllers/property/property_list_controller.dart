@@ -1,9 +1,9 @@
-import 'package:frontend_app/data/model/property_model.dart';
+import 'package:frontend_app/data/model/property_list_model.dart';
 import 'package:frontend_app/data/repositories/property/property_repo.dart';
 import 'package:get/get.dart';
 
-class PropertyController extends GetxController {
-  static PropertyController get instance => Get.find();
+class PropertyListController extends GetxController {
+  static PropertyListController get instance => Get.find();
 
   final PropertyRepo propertyRepo = PropertyRepo();
   RxList<Datum> propertyList = <Datum>[].obs;
@@ -18,7 +18,7 @@ class PropertyController extends GetxController {
   Future<void> fetchAllPropertyList() async {
     try {
       final response = await propertyRepo.getAllPropertyList();
-      propertyList.addAll(response.results.data);
+      propertyList.addAll(response.data);
     } catch (e) {
       throw Exception("Error $e");
     }

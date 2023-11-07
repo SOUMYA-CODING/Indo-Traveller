@@ -1,34 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_app/constants/color.dart';
 import 'package:frontend_app/constants/sizes.dart';
+import 'package:frontend_app/controllers/property/property_details_controller.dart';
+import 'package:frontend_app/data/model/property_details_model.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:get/get.dart';
 
-class PropertyImageSection extends StatefulWidget {
-  const PropertyImageSection({super.key});
+class PropertyImageSection extends StatelessWidget {
+  final List<PropertyImage> imagesList;
 
-  @override
-  State<PropertyImageSection> createState() => _PropertyImageSectionState();
-}
-
-class _PropertyImageSectionState extends State<PropertyImageSection> {
-  List getList = [
-    "https://a0.muscache.com/im/pictures/miso/Hosting-5264493/original/10d2c21f-84c2-46c5-b20b-b51d1c2c971a.jpeg?im_w=1200",
-    "https://a0.muscache.com/im/pictures/miso/Hosting-804959254707180514/original/fdba3a5f-da62-4b50-83ea-517639ba1385.jpeg?im_w=1200",
-  ];
+  const PropertyImageSection({super.key, required this.imagesList});
 
   @override
   Widget build(BuildContext context) {
+    final propertyDetailsController = Get.put(PropertyDetailsController());
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppSizes.defaultSpace),
       child: Column(
         children: [
           Stack(
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(AppSizes.cardRadiusLg),
-                child: Image.network(
-                  "https://a0.muscache.com/im/pictures/miso/Hosting-5264493/original/10d2c21f-84c2-46c5-b20b-b51d1c2c971a.jpeg?im_w=1200",
-                  height: 380,
-                  fit: BoxFit.cover,
+              SizedBox(
+                width: double.infinity,
+                child: CarouselSlider(
+                  options: CarouselOptions(
+                      aspectRatio: 16 / 9,
+                      viewportFraction: 1.0,
+                      enlargeCenterPage: true,
+                      enableInfiniteScroll: false,
+                      reverse: false,
+                      onPageChanged: (index, reason) =>
+                          propertyDetailsController.setActiveImageIndex(index)),
+                  items: imagesList.map((image) {
+                    return ClipRRect(
+                      borderRadius:
+                          BorderRadius.circular(AppSizes.cardRadiusLg),
+                      child: Image.network(
+                        image.propertyImages,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                      ),
+                    );
+                  }).toList(),
                 ),
               ),
               Positioned(
@@ -40,12 +53,14 @@ class _PropertyImageSectionState extends State<PropertyImageSection> {
                   decoration: BoxDecoration(
                       color: AppColor.black.withOpacity(0.7),
                       borderRadius: BorderRadius.circular(AppSizes.sm)),
-                  child: Text(
-                    "1 / 5",
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleLarge!
-                        .copyWith(color: AppColor.textWhite),
+                  child: Obx(
+                    () => Text(
+                      "${propertyDetailsController.activeImageIndex.value + 1} / ${imagesList.length}",
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleLarge!
+                          .copyWith(color: AppColor.textWhite),
+                    ),
                   ),
                 ),
               ),

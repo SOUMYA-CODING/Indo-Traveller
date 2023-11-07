@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_app/constants/color.dart';
 import 'package:frontend_app/constants/sizes.dart';
-import 'package:frontend_app/data/model/property_details_model.dart';
 
 class PropertyAmenitiesSection extends StatelessWidget {
-  final List<Amenity> amenitiesList;
+  final List amenitiesList;
 
   const PropertyAmenitiesSection({super.key, required this.amenitiesList});
 

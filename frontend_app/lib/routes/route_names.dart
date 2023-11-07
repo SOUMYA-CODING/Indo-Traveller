@@ -21,4 +21,5 @@ class RouteNames {
 
   // Reservation
   static const reservationScreen = "/reservation_screen";
+  static const reservationConfirmScreen = "/reservation_confirm_screen";
 }

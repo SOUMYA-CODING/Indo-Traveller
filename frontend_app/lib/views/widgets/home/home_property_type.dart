@@ -19,7 +19,7 @@ class HomePropertyType extends StatelessWidget {
       child: Column(
         children: [
           const CustomSectionHeading(
-            title: "Popular Property",
+            title: "Property",
             showActionButton: false,
             textColor: AppColor.textWhite,
           ),

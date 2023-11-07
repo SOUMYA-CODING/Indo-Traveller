@@ -8,7 +8,7 @@ class ReservationAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return  const CustomAppBar(
       showBackArrow: true,
-      title: Text("Resquest to reserve"),
+      title: Text("Request to book"),
     );
   }
 }

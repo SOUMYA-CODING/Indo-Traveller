@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_app/constants/sizes.dart';
-import 'package:frontend_app/controllers/property/property_controller.dart';
-import 'package:frontend_app/data/model/property_model.dart';
+import 'package:frontend_app/controllers/property/property_list_controller.dart';
 import 'package:frontend_app/views/widgets/card/property_card.dart';
 import 'package:get/get.dart';
+import 'package:frontend_app/data/model/property_list_model.dart';
 
 class ExplorePropertySection extends StatelessWidget {
   const ExplorePropertySection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final propertyController = Get.put(PropertyController());
+    final propertyController = Get.put(PropertyListController());
     return Obx(
-          () => Padding(
+      () => Padding(
         padding: const EdgeInsets.symmetric(horizontal: AppSizes.defaultSpace),
         child: GridView.builder(
           itemCount: propertyController.propertyList.length,
@@ -31,7 +31,7 @@ class ExplorePropertySection extends StatelessWidget {
               id: property.id,
               price: property.pricePerNight,
               location: property.city,
-              image: property.propertyImages[1].propertyImages,
+              image: property.propertyImages.propertyImages,
             );
           },
         ),
