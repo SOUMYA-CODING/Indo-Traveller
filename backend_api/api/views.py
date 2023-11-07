@@ -13,7 +13,7 @@ from . utils import Util
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from random import randint
-
+from decimal import Decimal
 from core.models import UserProfile, PropertyType, Amenity, Property, Booking, Review, Payment
 from . serializer import (
     UserProfileSerializer, PropertyTypesSerializer, AmenitiesSerializer, PropertyListSerializer,
@@ -559,9 +559,18 @@ def create_review(request, property_id):
 @api_view(['GET'])
 # @permission_classes([IsAuthenticated])
 def review_list(request, property_id):
-    review = Review.objects.filter(property=property_id)
-    serializer = ReviewSerializer(review, many=True)
-    return Response({'message': 'Review list retrieved successfully', 'data': serializer.data}, status=status.HTTP_200_OK)
+    reviews = Review.objects.filter(property=property_id)
+    serializer = ReviewSerializer(reviews, many=True)
+
+    total_rating = sum(review.rating for review in reviews)
+
+    response_data = {
+        'message': 'Review list retrieved successfully',
+        'data': serializer.data,
+        'total_rating': Decimal(total_rating / len(reviews)).quantize(Decimal('0.0')) if reviews else Decimal('0.0')
+    }
+
+    return Response(response_data, status=status.HTTP_200_OK)
 
 
 # Update Review

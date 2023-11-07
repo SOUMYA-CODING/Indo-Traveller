@@ -31,6 +31,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
 
 class PropertyTypesSerializer(serializers.ModelSerializer):
+    icon = serializers.SerializerMethodField()
     class Meta:
         model = PropertyType
         fields = [
@@ -39,7 +40,13 @@ class PropertyTypesSerializer(serializers.ModelSerializer):
             'icon',
             'is_active',
         ]
+    
+    def get_icon(self, obj):
+        if obj.icon:
+            return obj.icon.url
+        return None
 
+    
 
 class AmenitiesSerializer(serializers.ModelSerializer):
     class Meta:
@@ -101,7 +108,6 @@ class PropertyFilterSerializer(serializers.Serializer):
     
 
 class ReviewSerializer(serializers.ModelSerializer):
-    property = PropertyDetailsSerializer()
     user = UserProfileSerializer()
 
     class Meta:

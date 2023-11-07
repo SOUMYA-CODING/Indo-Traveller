@@ -77,7 +77,9 @@ class Property(models.Model):
     city = models.CharField(max_length=255)
     address = models.TextField()
 
-    number_of_queen_bedrooms = models.PositiveIntegerField(null=True)
+    number_of_guest_allowed = models.PositiveIntegerField(null=True)
+
+    number_of_bedrooms = models.PositiveIntegerField(null=True)
 
     number_of_queen_beds = models.PositiveIntegerField(null=True)
     number_of_king_beds = models.PositiveIntegerField(null=True)
@@ -141,7 +143,7 @@ class Booking(models.Model):
 class Review(models.Model):
     property = models.ForeignKey(Property, on_delete=models.CASCADE)
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    rating = models.PositiveIntegerField()
+    rating = models.DecimalField(max_digits=3, decimal_places=1)
     comment = models.TextField()
 
     created_at = models.DateTimeField(auto_now_add=True)
