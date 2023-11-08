@@ -8,4 +8,6 @@ class AppAssets {
   static const onboardingImageOne = "assets/images/explore.gif";
   static const onboardingImageTwo = "assets/images/search.gif";
   static const onboardingImageThree = "assets/images/traveling.gif";
+
+  static const doneIcon = "assets/images/checkmark.png";
 }

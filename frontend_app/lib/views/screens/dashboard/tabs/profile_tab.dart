@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_app/constants/color.dart';
 import 'package:frontend_app/constants/sizes.dart';
+import 'package:frontend_app/routes/route_names.dart';
 import 'package:frontend_app/views/widgets/common/custom_tab_header.dart';
 import 'package:frontend_app/views/widgets/profile/profile_legal_section.dart';
 import 'package:frontend_app/views/widgets/profile/profile_settings_section.dart';
 import 'package:frontend_app/views/widgets/profile/profile_support_section.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 class ProfileTab extends StatelessWidget {
@@ -56,7 +58,7 @@ class ProfileTab extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   InkWell(
-                    onTap: () {},
+                    onTap: () => Get.offAllNamed(RouteNames.loginScreen),
                     child: Text(
                       "Logout",
                       style: Theme.of(context)

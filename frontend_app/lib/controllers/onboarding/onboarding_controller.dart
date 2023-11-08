@@ -1,4 +1,3 @@
-import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:frontend_app/routes/route_names.dart';
 import 'package:get/get.dart';
@@ -19,7 +18,7 @@ class OnboardingController extends GetxController {
 
   void nextPage() {
     if (currentPageIndex.value == 2) {
-      Get.offNamed(RouteNames.dashboardScreen);
+      Get.offNamed(RouteNames.loginScreen);
     } else {
       int page = currentPageIndex.value + 1;
       pageController.jumpToPage(page);

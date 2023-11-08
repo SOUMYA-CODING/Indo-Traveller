@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_app/constants/color.dart';
 import 'package:frontend_app/constants/extension.dart';
 
 class CustomAppButton extends StatefulWidget {

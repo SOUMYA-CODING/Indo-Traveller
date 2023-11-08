@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_app/constants/assets.dart';
-import 'package:frontend_app/constants/extension.dart';
 import 'package:frontend_app/constants/sizes.dart';
 import 'package:frontend_app/constants/strings.dart';
 import 'package:frontend_app/controllers/splash/splash_controller.dart';

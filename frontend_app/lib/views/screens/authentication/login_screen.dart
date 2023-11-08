@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_app/constants/color.dart';
-import 'package:frontend_app/constants/extension.dart';
-import 'package:frontend_app/views/widgets/common/custom_button.dart';
-import 'package:frontend_app/views/widgets/common/custom_text_form_field.dart';
+import 'package:frontend_app/constants/sizes.dart';
+import 'package:frontend_app/routes/route_names.dart';
+import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -10,102 +11,127 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 5.0.hp, horizontal: 7.0.wp),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                "Login",
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineMedium!
-                    .merge(const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    )),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: AppSizes.defaultSpace)
+                    .copyWith(top: AppSizes.appBarHeight + 10),
+            child: Text(
+              "Log in or sign up to IndoTraveller",
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+          ),
+          const SizedBox(height: AppSizes.spaceBtwSections),
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: AppSizes.defaultSpace),
+            child: TextFormField(
+              keyboardType: TextInputType.emailAddress,
+              decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                  borderRadius:
+                      BorderRadius.circular(AppSizes.inputFieldRadius),
+                  borderSide: const BorderSide(color: AppColor.grey),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius:
+                      BorderRadius.circular(AppSizes.inputFieldRadius),
+                  borderSide: const BorderSide(color: AppColor.grey),
+                ),
+                hintText: "Email Address",
+                prefixIcon: const Icon(Iconsax.message),
               ),
-              CustomAppTextFormField(
-                hintText: "E-mail",
-                isObscureText: false,
-                textInputType: TextInputType.emailAddress,
-                outlineBorderRequired: false,
-                prefixIcon: Icons.home,
-                validator: (value) {
-                  if (value == "") {
-                    return 'Please enter your email!';
-                  }
-                  return null;
-                },
-              ),
-              CustomAppTextFormField(
+            ),
+          ),
+          const SizedBox(height: AppSizes.inputFieldRadius),
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: AppSizes.defaultSpace),
+            child: TextFormField(
+              keyboardType: TextInputType.visiblePassword,
+              obscureText: true,
+              decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                  borderRadius:
+                      BorderRadius.circular(AppSizes.inputFieldRadius),
+                  borderSide: const BorderSide(color: AppColor.grey),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius:
+                      BorderRadius.circular(AppSizes.inputFieldRadius),
+                  borderSide: const BorderSide(color: AppColor.grey),
+                ),
                 hintText: "Password",
-                isObscureText: true,
-                textInputType: TextInputType.visiblePassword,
-                outlineBorderRequired: false,
-                prefixIcon: Icons.home,
-                suffixIcon: Icons.home,
-                validator: (value) {
-                  if (value == "") {
-                    return 'Please enter your password!';
-                  }
-                  return null;
-                },
+                prefixIcon: const Icon(Iconsax.lock),
               ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 2.0.hp),
-                  child: InkWell(
-                    onTap: (){},
-                    child: Text(
-                      "Password Reset ?",
-                      style: Theme.of(context).textTheme.titleMedium!.merge(
-                          const TextStyle(
-                              color: Colors.black, fontWeight: FontWeight.bold)),
-                    ),
+            ),
+          ),
+          const SizedBox(height: AppSizes.spaceBtwItems),
+          Align(
+            alignment: Alignment.centerRight,
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: AppSizes.defaultSpace),
+              child: TextButton(
+                onPressed: () => Get.toNamed(RouteNames.passwordResetScreen),
+                child: Text(
+                  "Password Reset ?",
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: AppSizes.spaceBtwItems),
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: AppSizes.defaultSpace),
+            child: SizedBox(
+              width: double.infinity,
+              height: 55,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColor.primary,
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(AppSizes.cardRadiusMd),
                   ),
                 ),
-              ),
-              CustomAppButton(
-                content: Text(
-                  "Sign In",
-                  style: Theme.of(context).textTheme.titleMedium!.merge(
-                      const TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold)),
+                onPressed: () => Get.toNamed(RouteNames.dashboardScreen),
+                child: Text(
+                  "Continue",
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge!
+                      .copyWith(color: AppColor.textWhite),
                 ),
-                onPressed: () {},
-                outlineBorderRequired: true,
-                backgroundColor: AppColor.primary,
               ),
-              CustomAppButton(
-                content: Text(
-                  "Sign In with Google",
-                  style: Theme.of(context).textTheme.titleMedium!.merge(
-                      const TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.bold)),
-                ),
-                onPressed: () {},
-                outlineBorderRequired: false,
-                backgroundColor: Colors.white,
-              ),
-              CustomAppButton(
-                content: Text(
-                  "Dont have a account! Register",
-                  style: Theme.of(context).textTheme.titleMedium!.merge(
-                      const TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.bold)),
-                ),
-                onPressed: () {},
-                outlineBorderRequired: true,
-                backgroundColor: Colors.white,
-              ),
-            ],
+            ),
           ),
-        ),
+          const SizedBox(height: AppSizes.spaceBtwItems),
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: AppSizes.defaultSpace),
+            child: SizedBox(
+              width: double.infinity,
+              height: 55,
+              child: OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(AppSizes.cardRadiusMd),
+                  ),
+                ),
+                onPressed: () => Get.toNamed(RouteNames.registrationScreen),
+                child: Text(
+                  "News User! Sign up",
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
