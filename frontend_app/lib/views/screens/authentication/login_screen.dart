@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend_app/constants/color.dart';
 import 'package:frontend_app/constants/sizes.dart';
@@ -41,7 +42,7 @@ class LoginScreen extends StatelessWidget {
                   borderSide: const BorderSide(color: AppColor.grey),
                 ),
                 hintText: "Email Address",
-                prefixIcon: const Icon(Iconsax.message),
+                prefixIcon: const Icon(Iconsax.sms),
               ),
             ),
           ),
@@ -69,18 +70,29 @@ class LoginScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: AppSizes.spaceBtwItems),
-          Align(
-            alignment: Alignment.centerRight,
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: AppSizes.defaultSpace),
-              child: TextButton(
-                onPressed: () => Get.toNamed(RouteNames.passwordResetScreen),
-                child: Text(
-                  "Password Reset ?",
-                  style: Theme.of(context).textTheme.titleLarge,
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: AppSizes.defaultSpace),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                CupertinoCheckbox(
+                  value: true,
+                  onChanged: (bool? value) {},
                 ),
-              ),
+                Text(
+                  "Remember Me",
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                const Spacer(),
+                TextButton(
+                  onPressed: () => Get.toNamed(RouteNames.passwordResetScreen),
+                  child: Text(
+                    "Forgot Password ?",
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                ),
+              ],
             ),
           ),
           const SizedBox(height: AppSizes.spaceBtwItems),

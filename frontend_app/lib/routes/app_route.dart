@@ -1,6 +1,6 @@
 import 'package:frontend_app/routes/route_names.dart';
 import 'package:frontend_app/views/screens/authentication/login_screen.dart';
-import 'package:frontend_app/views/screens/authentication/password_reset_screen.dart';
+import 'package:frontend_app/views/screens/authentication/password_reset/password_reset_screen.dart';
 import 'package:frontend_app/views/screens/authentication/registration/otp_screen.dart';
 import 'package:frontend_app/views/screens/authentication/registration/registration_confirm_screen.dart';
 import 'package:frontend_app/views/screens/authentication/registration/registration_screen.dart';
