@@ -12,7 +12,7 @@ class SplashController extends GetxController {
     super.onInit();
     Timer(
       const Duration(seconds: 3),
-      () => Get.offAllNamed(RouteNames.onboardingScreen),
+      () => Get.offNamed(RouteNames.loginScreen),
     );
   }
 
@@ -23,7 +23,8 @@ class SplashController extends GetxController {
     if (!hasCompletedOnboarding) {
       await AppPreferences.saveOnboardingStatus(true);
       Get.offNamed(RouteNames.onboardingScreen);
-    } else if (isLoggedIn) {
+    } else 
+    if (isLoggedIn) {
       Get.offNamed(RouteNames.dashboardScreen);
     } else {
       Get.offNamed(RouteNames.loginScreen);

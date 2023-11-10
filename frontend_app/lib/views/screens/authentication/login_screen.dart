@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend_app/constants/color.dart';
 import 'package:frontend_app/constants/sizes.dart';
+import 'package:frontend_app/controllers/auth/login_controller.dart';
 import 'package:frontend_app/routes/route_names.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -11,6 +12,8 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final LoginController loginController = Get.put(LoginController());
+
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -29,6 +32,7 @@ class LoginScreen extends StatelessWidget {
             padding:
                 const EdgeInsets.symmetric(horizontal: AppSizes.defaultSpace),
             child: TextFormField(
+              controller: loginController.userNameController,
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
@@ -51,6 +55,7 @@ class LoginScreen extends StatelessWidget {
             padding:
                 const EdgeInsets.symmetric(horizontal: AppSizes.defaultSpace),
             child: TextFormField(
+              controller: loginController.passwordController,
               keyboardType: TextInputType.visiblePassword,
               obscureText: true,
               decoration: InputDecoration(
@@ -76,9 +81,15 @@ class LoginScreen extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                CupertinoCheckbox(
-                  value: true,
-                  onChanged: (bool? value) {},
+                Obx(
+                  () => CupertinoCheckbox(
+                    value: loginController.rememberMe.value,
+                    onChanged: (bool? value) {
+                      if (value != null) {
+                        loginController.rememberMe.value = value;
+                      }
+                    },
+                  ),
                 ),
                 Text(
                   "Remember Me",
@@ -110,13 +121,22 @@ class LoginScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(AppSizes.cardRadiusMd),
                   ),
                 ),
-                onPressed: () => Get.toNamed(RouteNames.dashboardScreen),
-                child: Text(
-                  "Continue",
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleLarge!
-                      .copyWith(color: AppColor.textWhite),
+                onPressed: () => loginController.authenticateUser(),
+                child: Obx(
+                  () {
+                    if (loginController.isLoading.value) {
+                      return const CircularProgressIndicator(
+                          color: AppColor.white);
+                    } else {
+                      return Text(
+                        "Continue",
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleLarge!
+                            .copyWith(color: AppColor.textWhite),
+                      );
+                    }
+                  },
                 ),
               ),
             ),

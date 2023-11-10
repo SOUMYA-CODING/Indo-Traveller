@@ -1,5 +1,5 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:frontend_app/data/model/user_model.dart';
+import 'package:frontend_app/data/model/login_user_model.dart';
 
 class AppPreferences{
   static const storage = FlutterSecureStorage();
@@ -17,15 +17,15 @@ class AppPreferences{
     return status == 'true';
   }
 
-  static Future<void> saveUserData(UserModel user) async {
-    final userDataJson = userModelToJson(user);
+  static Future<void> saveUserData(LoginUserModel user) async {
+    final userDataJson = loginUserModelToJson(user);
     await storage.write(key: keyUserData, value: userDataJson);
   }
 
-  static Future<UserModel?> getUserData() async {
+  static Future<LoginUserModel?> getUserData() async {
     final userDataJson = await storage.read(key: keyUserData);
     if (userDataJson != null) {
-      return userModelFromJson(userDataJson);
+      return loginUserModelFromJson(userDataJson);
     } else {
       return null;
     }
