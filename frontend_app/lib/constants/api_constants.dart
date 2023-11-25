@@ -1,7 +1,7 @@
 class AppApiConstants {
   // Base Urls
-  static const String productionApiUrl = "http://192.168.1.5:8000/api/";
-  static const String debugApiUrl = "http://192.168.1.5:8000/api/";
+  static const String productionApiUrl = "http://192.168.29.98:8000/api/";
+  static const String debugApiUrl = "http://192.168.29.98:8000/api/";
 
   // Auth
   static const String login = "/auth/login/";

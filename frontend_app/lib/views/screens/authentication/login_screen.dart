@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend_app/constants/assets.dart';
 import 'package:frontend_app/constants/color.dart';
 import 'package:frontend_app/constants/sizes.dart';
 import 'package:frontend_app/controllers/auth/login_controller.dart';
@@ -15,13 +16,19 @@ class LoginScreen extends StatelessWidget {
     final LoginController loginController = Get.put(LoginController());
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          const SizedBox(height: AppSizes.appBarHeight + 10),
+          Image.asset(
+            AppAssets.appLogo,
+            width: 100,
+          ),
+          const SizedBox(height: AppSizes.spaceBtwItems),
           Padding(
             padding:
-                const EdgeInsets.symmetric(horizontal: AppSizes.defaultSpace)
-                    .copyWith(top: AppSizes.appBarHeight + 10),
+                const EdgeInsets.symmetric(horizontal: AppSizes.defaultSpace),
             child: Text(
               "Log in or sign up to IndoTraveller",
               style: Theme.of(context).textTheme.headlineSmall,
