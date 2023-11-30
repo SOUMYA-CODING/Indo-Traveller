@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_app/constants/sizes.dart';
+import 'package:frontend_app/utils/sizes.dart';
 import 'package:frontend_app/views/widgets/common/custom_app_bar.dart';
 
 class PasswordResetScreen extends StatelessWidget {

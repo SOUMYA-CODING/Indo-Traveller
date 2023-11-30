@@ -1,7 +1,7 @@
 import 'package:frontend_app/config/preferences.dart';
-import 'package:frontend_app/constants/api_constants.dart';
 import 'package:frontend_app/data/model/login_user_model.dart';
 import 'package:frontend_app/dio/dio_client.dart';
+import 'package:frontend_app/utils/api_urls.dart';
 
 class LoginRepo {
   final DioClient dioClient = DioClient();
@@ -10,7 +10,7 @@ class LoginRepo {
       String username, String password, bool rememberMe) async {
     try {
       final response = await dioClient.post(
-        AppApiConstants.login,
+        AppApiUrls.login,
         data: {
           "username": username,
           "password": password,

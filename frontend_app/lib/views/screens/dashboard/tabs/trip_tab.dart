@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_app/constants/sizes.dart';
+import 'package:frontend_app/utils/sizes.dart';
 import 'package:frontend_app/views/widgets/common/custom_tab_header.dart';
 import 'package:frontend_app/views/widgets/trips/empty_trip_section.dart';
 

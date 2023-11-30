@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_app/constants/color.dart';
-import 'package:frontend_app/constants/sizes.dart';
+import 'package:frontend_app/utils/color.dart';
+import 'package:frontend_app/utils/sizes.dart';
 import 'package:frontend_app/controllers/property/property_details_controller.dart';
 import 'package:frontend_app/controllers/review/review_list_controller.dart';
 import 'package:frontend_app/routes/route_names.dart';

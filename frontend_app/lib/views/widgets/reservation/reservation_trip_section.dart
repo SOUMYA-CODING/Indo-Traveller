@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_app/constants/sizes.dart';
+import 'package:frontend_app/utils/sizes.dart';
 
 class ReservationTripSection extends StatelessWidget {
   const ReservationTripSection({super.key});

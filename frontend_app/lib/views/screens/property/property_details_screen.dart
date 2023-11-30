@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_app/constants/sizes.dart';
+import 'package:frontend_app/utils/sizes.dart';
 import 'package:frontend_app/controllers/property/property_details_controller.dart';
 import 'package:frontend_app/views/widgets/property/property_amenities_section.dart';
 import 'package:frontend_app/views/widgets/property/property_app_bar.dart';

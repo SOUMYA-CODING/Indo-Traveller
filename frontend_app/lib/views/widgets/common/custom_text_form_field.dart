@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_app/constants/extension.dart';
+import 'package:frontend_app/utils/extension.dart';
 
 class CustomAppTextFormField extends StatefulWidget {
   final String hintText;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_app/constants/theme.dart';
-import 'package:frontend_app/constants/strings.dart';
+import 'package:frontend_app/utils/theme.dart';
+import 'package:frontend_app/utils/strings.dart';
 import 'package:frontend_app/routes/app_route.dart';
 import 'package:get/get.dart';
 

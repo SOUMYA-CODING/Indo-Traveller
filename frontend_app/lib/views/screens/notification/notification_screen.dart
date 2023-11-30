@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_app/constants/sizes.dart';
+import 'package:frontend_app/utils/sizes.dart';
 import 'package:frontend_app/devices/device_utility.dart';
 import 'package:frontend_app/views/widgets/notification/notification_header.dart';
 import 'package:iconsax/iconsax.dart';

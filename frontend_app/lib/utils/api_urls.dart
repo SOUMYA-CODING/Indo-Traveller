@@ -1,4 +1,4 @@
-class AppApiConstants {
+class AppApiUrls {
   // Base Urls
   static const String productionApiUrl = "http://192.168.29.98:8000/api/";
   static const String debugApiUrl = "http://192.168.29.98:8000/api/";

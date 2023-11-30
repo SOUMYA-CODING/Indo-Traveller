@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_app/constants/sizes.dart';
+import 'package:frontend_app/utils/sizes.dart';
 import 'package:frontend_app/controllers/property/property_list_controller.dart';
 import 'package:frontend_app/views/widgets/card/property_card.dart';
 import 'package:get/get.dart';

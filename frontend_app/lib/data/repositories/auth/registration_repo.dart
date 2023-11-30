@@ -1,4 +1,4 @@
-import 'package:frontend_app/constants/api_constants.dart';
+import 'package:frontend_app/utils/api_urls.dart';
 import 'package:frontend_app/dio/dio_client.dart';
 
 class RegistrationRepo {
@@ -13,7 +13,7 @@ class RegistrationRepo {
       String password) async {
     try {
       final response = await dioClient.post(
-        AppApiConstants.registration,
+        AppApiUrls.registration,
         data: {
           "first_name": firstName,
           "last_name": lastName,

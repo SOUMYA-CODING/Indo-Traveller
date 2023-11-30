@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_app/constants/color.dart';
-import 'package:frontend_app/constants/sizes.dart';
+import 'package:frontend_app/utils/color.dart';
+import 'package:frontend_app/utils/sizes.dart';
 import 'package:frontend_app/controllers/dashboard/dashboard_controller.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';

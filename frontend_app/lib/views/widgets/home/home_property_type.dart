@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_app/constants/color.dart';
-import 'package:frontend_app/constants/sizes.dart';
+import 'package:frontend_app/utils/color.dart';
+import 'package:frontend_app/utils/sizes.dart';
 import 'package:frontend_app/controllers/property_type/property_type_controller.dart';
 import 'package:frontend_app/views/widgets/card/property_type_card.dart';
 import 'package:frontend_app/views/widgets/common/custom_section_heading.dart';

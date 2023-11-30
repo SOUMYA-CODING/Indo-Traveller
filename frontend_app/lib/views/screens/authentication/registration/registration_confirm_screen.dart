@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_app/constants/assets.dart';
-import 'package:frontend_app/constants/color.dart';
-import 'package:frontend_app/constants/sizes.dart';
+import 'package:frontend_app/utils/assets.dart';
+import 'package:frontend_app/utils/color.dart';
+import 'package:frontend_app/utils/sizes.dart';
 import 'package:frontend_app/routes/route_names.dart';
 import 'package:get/get.dart';
 

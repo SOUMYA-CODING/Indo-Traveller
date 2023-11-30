@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:frontend_app/constants/api_constants.dart';
+import 'package:frontend_app/utils/api_urls.dart';
 
 class DioClient {
   Dio dio;
@@ -10,8 +10,8 @@ class DioClient {
       : dio = Dio(
           BaseOptions(
             baseUrl: kReleaseMode
-                ? AppApiConstants.productionApiUrl
-                : AppApiConstants.debugApiUrl,
+                ? AppApiUrls.productionApiUrl
+                : AppApiUrls.debugApiUrl,
             headers: {
               'Content-Type': 'application/json',
             },

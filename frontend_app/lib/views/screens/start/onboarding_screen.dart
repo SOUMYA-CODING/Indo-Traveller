@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_app/constants/assets.dart';
-import 'package:frontend_app/constants/extension.dart';
-import 'package:frontend_app/constants/sizes.dart';
-import 'package:frontend_app/constants/strings.dart';
+import 'package:frontend_app/utils/assets.dart';
+import 'package:frontend_app/utils/extension.dart';
+import 'package:frontend_app/utils/sizes.dart';
+import 'package:frontend_app/utils/strings.dart';
 import 'package:frontend_app/controllers/onboarding/onboarding_controller.dart';
 import 'package:frontend_app/devices/device_utility.dart';
 import 'package:frontend_app/views/widgets/onboarding/onboarding_button.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_app/constants/color.dart';
+import 'package:frontend_app/utils/color.dart';
 
 class CustomSectionHeading extends StatelessWidget {
   final String title, buttonTitle;

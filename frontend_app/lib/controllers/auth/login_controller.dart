@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:frontend_app/constants/sizes.dart';
+import 'package:frontend_app/helper/helper_function.dart';
 import 'package:frontend_app/data/repositories/auth/login_repo.dart';
 import 'package:frontend_app/routes/route_names.dart';
 import 'package:get/get.dart';
@@ -11,11 +11,11 @@ class LoginController extends GetxController {
   TextEditingController userNameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   RxBool rememberMe = false.obs;
+  RxBool isPasswordVisible = true.obs;
+  RxBool isLoading = false.obs;
 
-  var isLoading = false.obs;
-
-  void showSnackBar(String message) => Get.snackbar("Indo Traveller", message,
-      margin: const EdgeInsets.all(AppSizes.defaultSpace));
+  void togglePasswordVisibility() =>
+      isPasswordVisible(!isPasswordVisible.value);
 
   Future<void> authenticateUser() async {
     final username = userNameController.text.trim();
@@ -26,13 +26,13 @@ class LoginController extends GetxController {
       final isAuthenticated = await loginRepo.authenticateUser(
           username, password, rememberMe.value);
       if (isAuthenticated) {
-        showSnackBar("Login Success");
+        AppHelperFunctions.showSnackBar("Login Success");
         Get.offAllNamed(RouteNames.dashboardScreen);
       } else {
-        showSnackBar("Login Failed");
+        AppHelperFunctions.showSnackBar("Login Failed! Invalid username or password");
       }
     } catch (e) {
-      showSnackBar("Something went wrong");
+      AppHelperFunctions.showSnackBar("Something went wrong");
     } finally {
       isLoading(false);
     }

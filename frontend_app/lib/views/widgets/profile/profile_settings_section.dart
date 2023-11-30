@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_app/constants/sizes.dart';
+import 'package:frontend_app/utils/sizes.dart';
 import 'package:frontend_app/views/widgets/card/list_tile_card.dart';
 import 'package:frontend_app/views/widgets/common/custom_section_heading.dart';
 import 'package:iconsax/iconsax.dart';

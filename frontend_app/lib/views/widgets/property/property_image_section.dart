@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_app/constants/color.dart';
-import 'package:frontend_app/constants/sizes.dart';
+import 'package:frontend_app/utils/color.dart';
+import 'package:frontend_app/utils/sizes.dart';
 import 'package:frontend_app/controllers/property/property_details_controller.dart';
 import 'package:frontend_app/data/model/property_details_model.dart';
 import 'package:carousel_slider/carousel_slider.dart';
